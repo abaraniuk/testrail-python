@@ -322,7 +322,11 @@ class TestRail(object):
             return ResultContainer(list(map(Result, self.api.results_by_run(run.id))))
         else:
             return ResultContainer(list(map(
+<<<<<<< HEAD
                 Result, self.api.results_by_run_filtered(run.id, filter_ids))))
+=======
+                Result, self.api.results_by_run_f(run.id, filter_ids))))
+>>>>>>> f1fcc8985bdeb6f1c780a31a183ab05ce528dac4
 
     @results.register(Test)
     def _results_for_test(self, test):
