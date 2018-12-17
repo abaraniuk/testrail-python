@@ -317,8 +317,12 @@ class TestRail(object):
         raise TestRailError("Must request results by Run or Test")
 
     @results.register(Run)
-    def _results_for_run(self, run):
-        return ResultContainer(list(map(Result, self.api.results_by_run(run.id))))
+    def _results_for_run(self, run, filter_ids=None):
+        if filter_ids is None:
+            return ResultContainer(list(map(Result, self.api.results_by_run(run.id))))
+        else:
+            return ResultContainer(list(map(
+                Result, self.api.results_by_run_f(run.id, filter_ids))))
 
     @results.register(Test)
     def _results_for_test(self, test):
