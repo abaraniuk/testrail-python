@@ -535,6 +535,13 @@ class API(object):
             self._results[run_id]['ts'] = datetime.now()
         return self._results[run_id]['value']
 
+    def results_by_run_filtered(self, run_id, filter_ids):
+        if self._refresh(self._results[run_id]['ts']):
+            _results = self._get('get_results_for_run/%s' % run_id + "&status_id=" + str(filter_ids))
+            self._results[run_id]['value'] = _results
+            self._results[run_id]['ts'] = datetime.now()
+        return self._results[run_id]['value']
+
     def results_by_test(self, test_id):
         if self._refresh(self._results[test_id]['ts']):
             _results = self._get('get_results/%s' % test_id)
